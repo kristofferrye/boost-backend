@@ -1,3 +1,5 @@
+// DAO
+
 import { Dao } from './interfaces/dao'
 import { FoodItem } from './models'
 
@@ -12,15 +14,24 @@ export class InMemoryGroceryDao implements Dao<FoodItem>{
         return this.items
     }
     async getById (id: string):Promise<FoodItem> {
-        throw new Error('Not implemented')
+        return this.items.find(x => x.id === id)
     }
     async create (item: FoodItem):Promise<void> {
-        throw new Error('Not implemented')
+        this.items.push(item)
     }
     async delete (id: string):Promise<void> {
-        throw new Error('Not implemented')
+        this.items = this.items.filter(x => x.id !== id)
     }
     async update (item: FoodItem):Promise<void> {
-        throw new Error('Not implemented')
+        let currentItem = this.items.find(x => x.id === item.id)
+        if (currentItem) {
+            currentItem.id = item.id
+            currentItem.name = item.name
+            currentItem.description = item.description
+            currentItem.vegetarian = item.vegetarian
+        }
+        console.log('updated item:')
+        console.log(currentItem)
+        // throw new Error('Not implemented')
     }
 }
