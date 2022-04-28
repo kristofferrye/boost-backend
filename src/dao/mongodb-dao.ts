@@ -1,6 +1,9 @@
+// DAO
+
 import { Dao } from '../interfaces'
 import { FoodItem, foodItemSchema } from '../models'
 import mongoose, { Model } from 'mongoose'
+import { CustomErrors, GroceryAppError } from '../error'
 
 export class MongoDbDao implements Dao<FoodItem> {
     private model: Model<FoodItem>
@@ -22,14 +25,24 @@ export class MongoDbDao implements Dao<FoodItem> {
 
     async getAll ():Promise<FoodItem[]> {
         const items = await this.model.find()
+        if (!items) {
+            throw new GroceryAppError('Food item not found in MongoDb', CustomErrors.NOT_FOUND)
+        }
         return items.map(item => this.fromMongoDbToFoodItem(item))
     }
     async getById (id: string):Promise<FoodItem> {
         const item = await this.model.findOne({id})
+        if (!item) {
+            throw new GroceryAppError('Food item not found in MongoDb', CustomErrors.NOT_FOUND)
+        }
         return this.fromMongoDbToFoodItem(item)
     }
     async create (item: FoodItem):Promise<void> {
-        await this.model.create(item)
+        try {
+            await this.model.create(item)
+        } catch (error) {
+            return error
+        }
     }
     async delete (id: string):Promise<void> {
         await this.model.findOneAndDelete({id})
