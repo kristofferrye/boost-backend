@@ -20,7 +20,7 @@ const initServer = async () => {
   app.use(express.json())
   app.use(timeLogger)
 
-  await connectToMongoDB()
+  await connectToMongoDB() //please work
 
   
 
