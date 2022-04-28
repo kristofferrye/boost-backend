@@ -1,7 +1,7 @@
 // DAO
 
-import { Dao } from './interfaces/dao'
-import { FoodItem } from './models'
+import { Dao } from '../interfaces/dao'
+import { FoodItem } from '../models'
 
 
 export class InMemoryGroceryDao implements Dao<FoodItem>{
@@ -28,7 +28,7 @@ export class InMemoryGroceryDao implements Dao<FoodItem>{
             currentItem.id = item.id
             currentItem.name = item.name
             currentItem.description = item.description
-            currentItem.vegetarian = item.vegetarian
+            // currentItem.vegetarian = item.vegetarian
         }
         console.log('updated item:')
         console.log(currentItem)

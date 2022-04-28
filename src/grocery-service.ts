@@ -1,6 +1,7 @@
 // SERVICE
 
-import { Dao } from './interfaces/dao'
+// import { Dao } from './interfaces/dao'
+import { Dao } from './interfaces'
 import { FoodItem } from './models'
 import { GroceryService } from './interfaces'
 
