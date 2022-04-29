@@ -6,9 +6,12 @@ import { getStatusCodeFromError } from './error'
 import { FoodItem } from './models'
 import { foodItemSchema } from './validation'
 import { MongoDbDao  } from './dao'
+// i controller.ts:
+import cors from "cors";
 
 const app = express()
 app.use(express.json())
+app.use(cors())
 
 const getExpressApp = () => {
   const dao = new MongoDbDao()
