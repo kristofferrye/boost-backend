@@ -11,7 +11,7 @@ import cors from "cors";
 
 const app = express()
 app.use(express.json())
-app.use(cors())
+
 
 const getExpressApp = () => {
   const dao = new MongoDbDao()
@@ -20,6 +20,7 @@ const getExpressApp = () => {
   const app = express()
   app.use(express.json())
   app.use(requestTimeLogger)
+  app.use(cors())
   // app.use(authenticate) <--
 
   const PORT = process.env.PORT || 8080
